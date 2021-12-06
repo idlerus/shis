@@ -33,11 +33,19 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        //
+        $newProduct = Product::create([
+                                      'name' => $request->name,
+                                      'shortDesc' => $request->shortDesc,
+                                      'fullDesc' => $request->fullDesc,
+                                      'brand' => $request->brand,
+                                      'country' => $request->country,
+                                    ]);
+
+        return redirect('products/' . $newProduct->id);
     }
 
     /**
@@ -57,11 +65,13 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Product $product)
     {
-        //
+        return view('products.edit', [
+            'product' => $product
+        ]);
     }
 
     /**
@@ -69,21 +79,31 @@ class ProductController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update([
+                            'name' => $request->name,
+                            'shortDesc' => $request->shortDesc,
+                            'fullDesc' => $request->fullDesc,
+                            'brand' => $request->brand,
+                            'country' => $request->country,
+                        ]);
+
+        return redirect('products/' . $product->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return redirect('/products');
     }
 }

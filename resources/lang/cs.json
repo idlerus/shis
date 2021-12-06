@@ -1,6 +1,9 @@
 {
-    "hookah": "Dýmky",
-    "tobbacco": "Tabák",
-    "bowl": "Korunky",
-    "base": "Vázy"
+    "hookah": "[0, 1] Dýmka|[*] Dýmky",
+    "tobacco": "[0, 1] Tabák|[*] Tabáky",
+    "bowl": "[0, 1] Korunka|[*] Korunky",
+    "base": "[0, 1] Váza|[*] Vázy",
+    "coal": "Uhlí",
+    "none": "Nic",
+    "category": "Kategorie"
 }

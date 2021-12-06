@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +15,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => '\App\Http\Middleware\CategoriesMiddleware'], function() {
+    Route::get('login', [LoginController::class, 'indexLogin'])->name('loginIndex');
+    Route::post('login', [LoginController::class, 'login'])->name('login');
+    Route::get('register', [LoginController::class, 'indexRegister'])->name('registerIndex');
+    Route::post('register', [LoginController::class, 'register'])->name('register');
+    Route::get('signout', [LoginController::class, 'signOut'])->name('signout');
+
+    Route::get('/', function () {return view('welcome');});
+    Route::get('/products',                 [ProductController::class, 'index']);
+    Route::get('/products/{product}',       [ProductController::class, 'show']);
+    Route::group(['middleware' => 'auth'], function() {
+        Route::get('/products/create/post',     [ProductController::class, 'create']);
+        Route::post('/products/create/post',    [ProductController::class, 'store']);
+        Route::get('/products/{product}/edit',  [ProductController::class, 'edit']);
+        Route::put('/products/{product}/edit',  [ProductController::class, 'update']);
+        Route::delete('/products/{product}',    [ProductController::class, 'destroy']);
+    });
 });
 
-Route::get('/products',                 [ProductController::class, 'index']);
-Route::get('/products/{product}',       [ProductController::class, 'show']);
-Route::get('/products/create/post',     [ProductController::class, 'create']);
-Route::post('/products/create/post',    [ProductController::class, 'store']);
-Route::get('/products/{product}/edit',  [ProductController::class, 'edit']);
-Route::post('/products/{product}/edit', [ProductController::class, 'update']);
-Route::delete('/products/{product}',    [ProductController::class, 'destroy']);
+

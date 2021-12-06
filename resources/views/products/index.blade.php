@@ -10,7 +10,7 @@
                         <div class="column is-8">
                             @forelse($products as $product)
                                 <ul>
-                                    <li><a href="./products/{{ $product->id }}">{{ ucfirst($product->name) }}</a></li>
+                                    <li><a href="./products/{{ $product->id }}">{{ ucfirst($product->brand) }} - {{ ucfirst($product->name) }}</a></li>
                                 </ul>
                             @empty
                                 <p class="text-warning">No blog Posts available</p>

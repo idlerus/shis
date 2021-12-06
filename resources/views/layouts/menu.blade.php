@@ -27,18 +27,11 @@
                 </a>
 
                 <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                        {{ __('hookah') }}
-                    </a>
-                    <a class="navbar-item">
-                        {{ __('tobbacco') }}
-                    </a>
-                    <a class="navbar-item">
-                        {{ __('bowl') }}
-                    </a>
-                    <a class="navbar-item">
-                        {{ __('base') }}
-                    </a>
+                    @foreach ($categories as $category)
+                        <a class="navbar-item">
+                            {{ ucfirst(trans_choice($category->name, 2)) }}
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -46,11 +39,11 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
+                    <a class="button is-primary" href="register">
+                        <strong>{{ ucfirst(__('generic.registerButton')) }}</strong>
                     </a>
-                    <a class="button is-light">
-                        Log in
+                    <a class="button is-light" href="login">
+                        {{ ucfirst(__('generic.loginButton')) }}
                     </a>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 {
-    "hookah": "Hookah",
-    "tobbacco": "Tobbacco",
-    "bowl": "Bowl",
-    "base": "Base"
+    "hookah": "[0, 1] Hookah|[*] Hookah",
+    "tobacco": "[0, 1] Tobacco|[*] Tobaccos",
+    "bowl": "[0, 1] Bowl|[*] Bowls",
+    "base": "[0, 1] Base|[*] Bases",
+    "coal": "[*] Coal"
 }
