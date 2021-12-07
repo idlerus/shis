@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::group(['middleware' => '\App\Http\Middleware\CategoriesMiddleware'], func
     Route::post('register', [LoginController::class, 'register'])->name('register');
     Route::get('logout', [LoginController::class, 'logOut'])->name('logout');
 
+    Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::get('/', function () {return view('welcome');});
     Route::get('/products',                 [ProductController::class, 'index']);
     Route::get('/products/{product}',       [ProductController::class, 'show']);
@@ -34,7 +36,11 @@ Route::group(['middleware' => '\App\Http\Middleware\CategoriesMiddleware'], func
     });
     Route::group(['middleware' => '\App\Http\Middleware\RoleMiddleware:admin'], function() {
         Route::view('/admin', 'admin.dashboard');
-        Route::view('/admin/categories', 'admin.categories');
+        Route::get('/admin/categories/create',     [CategoryController::class, 'create']);
+        Route::post('/admin/categories/create',    [CategoryController::class, 'store']);
+        Route::put('/admin/categories/{category}/edit',  [CategoryController::class, 'update']);
+        Route::get('/admin/categories', [CategoryController::class, 'adminIndex']);
+        Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy']);
     });
 });
 

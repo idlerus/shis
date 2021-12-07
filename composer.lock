@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d278cb0a8f8bde93cf80cd7c5bc4318",
+    "content-hash": "d156b4a2def7a39fcda6c213261aa5f4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5254,6 +5254,79 @@
             "time": "2021-11-29T15:30:56+00:00"
         },
         {
+            "name": "symfony/var-exporter",
+            "version": "v5.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-exporter.git",
+                "reference": "d59446d6166b1643a8a3c30c2fa8e16e51cdbde7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/d59446d6166b1643a8a3c30c2fa8e16e51cdbde7",
+                "reference": "d59446d6166b1643a8a3c30c2fa8e16e51cdbde7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/polyfill-php80": "^1.16"
+            },
+            "require-dev": {
+                "symfony/var-dumper": "^4.4.9|^5.0.9|^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\VarExporter\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Allows exporting any serializable PHP data structure to plain PHP code",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "clone",
+                "construct",
+                "export",
+                "hydrate",
+                "instantiate",
+                "serialize"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/var-exporter/tree/v5.4.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-11-22T10:44:13+00:00"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.3",
             "source": {
@@ -5305,6 +5378,66 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/2.2.3"
             },
             "time": "2020-07-13T06:12:54+00:00"
+        },
+        {
+            "name": "ufirst/lang-import-export",
+            "version": "8.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ufirstgroup/laravel-lang-import-export.git",
+                "reference": "d21c91cff702db436b79357228b4d9c1509e240e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ufirstgroup/laravel-lang-import-export/zipball/d21c91cff702db436b79357228b4d9c1509e240e",
+                "reference": "d21c91cff702db436b79357228b4d9c1509e240e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.5.*|5.6.*|5.7.*|5.8.*|^6.0|^7.0|^8.0",
+                "php": ">=5.3.0",
+                "symfony/var-exporter": "^5.1"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "frameworks": [
+                    "Laravel 7"
+                ]
+            },
+            "autoload": {
+                "classmap": [
+                    "src/migrations"
+                ],
+                "psr-0": {
+                    "UFirst\\LangImportExport\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Ruoss",
+                    "email": "michael.ruoss@ufirstgroup.com"
+                }
+            ],
+            "description": "A Laravel package providing artisan commands to import and export language files from and to CSV.",
+            "keywords": [
+                "csv",
+                "export",
+                "import",
+                "laravel",
+                "localization",
+                "messages",
+                "translation"
+            ],
+            "support": {
+                "issues": "https://github.com/ufirstgroup/laravel-lang-import-export/issues",
+                "source": "https://github.com/ufirstgroup/laravel-lang-import-export/tree/8.0.2"
+            },
+            "time": "2021-03-31T05:39:16+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

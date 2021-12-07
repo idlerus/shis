@@ -43,6 +43,7 @@ class ProductController extends Controller
                                       'fullDesc' => $request->fullDesc,
                                       'brand' => $request->brand,
                                       'country' => $request->country,
+                                      'category_id' => $request->category
                                     ]);
 
         return redirect('products/' . $newProduct->id);
@@ -89,6 +90,7 @@ class ProductController extends Controller
                             'fullDesc' => $request->fullDesc,
                             'brand' => $request->brand,
                             'country' => $request->country,
+                            'category_id' => $request->category
                         ]);
 
         return redirect('products/' . $product->id);

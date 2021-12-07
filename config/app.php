@@ -165,7 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        UFirst\LangImportExport\LangImportExportServiceProvider::class,
         /*
          * Application Service Providers...
          */

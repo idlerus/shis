@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('content')
-
     <div class="columns is-centered mt-4">
         <div class="column is-8">
             <aside class="menu">
