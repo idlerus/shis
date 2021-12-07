@@ -8,21 +8,21 @@
                 <p class="is-size-3">{{ ucfirst(__('generic.login')) }}</p>
 
                 <div class="field">
-                    <label class="label" for="username">{{ ucfirst(__('generic.username')) }}</label>
+                    <label class="label" for="name">{{ ucfirst(__('generic.username')) }}</label>
                     <div class="control">
-                        <input class="input" type="text" name="username" id="username" placeholder="{{ ucfirst(__('generic.username')) }}...">
+                        <input class="input" type="text" name="name" id="name" placeholder="{{ ucfirst(__('generic.username')) }}">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label" for="password">{{ ucfirst(__('generic.password')) }}</label>
                     <div class="control">
-                        <input class="input" type="password" name="password" id="password" placeholder="{{ ucfirst(__('generic.password')) }}...">
+                        <input class="input" type="password" name="password" id="password" placeholder="{{ ucfirst(__('generic.password')) }}">
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="checkbox">
-                            <input type="checkbox">
+                            <input type="checkbox" id="remember" name="remember">
                             {{ ucfirst(__('generic.keepLoggedIn')) }}
                         </label>
                     </div>

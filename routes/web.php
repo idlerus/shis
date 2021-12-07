@@ -20,7 +20,7 @@ Route::group(['middleware' => '\App\Http\Middleware\CategoriesMiddleware'], func
     Route::post('login', [LoginController::class, 'login'])->name('login');
     Route::get('register', [LoginController::class, 'indexRegister'])->name('registerIndex');
     Route::post('register', [LoginController::class, 'register'])->name('register');
-    Route::get('signout', [LoginController::class, 'signOut'])->name('signout');
+    Route::get('logout', [LoginController::class, 'logOut'])->name('logout');
 
     Route::get('/', function () {return view('welcome');});
     Route::get('/products',                 [ProductController::class, 'index']);
@@ -31,6 +31,10 @@ Route::group(['middleware' => '\App\Http\Middleware\CategoriesMiddleware'], func
         Route::get('/products/{product}/edit',  [ProductController::class, 'edit']);
         Route::put('/products/{product}/edit',  [ProductController::class, 'update']);
         Route::delete('/products/{product}',    [ProductController::class, 'destroy']);
+    });
+    Route::group(['middleware' => '\App\Http\Middleware\RoleMiddleware:admin'], function() {
+        Route::view('/admin', 'admin.dashboard');
+        Route::view('/admin/categories', 'admin.categories');
     });
 });
 

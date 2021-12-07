@@ -8,27 +8,33 @@
                 <p class="is-size-3">{{ ucfirst(__('generic.register')) }}</p>
 
                 <div class="field">
-                    <label class="label" for="username">{{ ucfirst(__('generic.username')) }}</label>
+                    <label class="label" for="name">{{ ucfirst(__('generic.username')) }}</label>
                     <div class="control">
-                        <input class="input" type="text" name="username" id="username" placeholder="{{ ucfirst(__('generic.username')) }}...">
+                        <input class="input" type="text" name="name" id="name" placeholder="{{ ucfirst(__('generic.username')) }}">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label" for="email">{{ ucfirst(__('generic.email')) }}</label>
                     <div class="control">
-                        <input class="input" type="email" name="email" id="email" placeholder="{{ ucfirst(__('generic.email')) }}...">
+                        <input class="input" type="email" name="email" id="email" placeholder="{{ ucfirst(__('generic.email')) }}">
                     </div>
                 </div>
                 <div class="field">
                     <label class="label" for="password">{{ ucfirst(__('generic.password')) }}</label>
                     <div class="control">
-                        <input class="input" type="password" name="password" id="password" placeholder="{{ ucfirst(__('generic.password')) }}...">
+                        <input class="input" type="password" name="password" id="password" placeholder="{{ ucfirst(__('generic.password')) }}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="password_confirmation">{{ ucfirst(__('generic.passwordConfirm')) }}</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password_confirmation" id="password_confirmation" placeholder="{{ ucfirst(__('generic.passwordConfirm')) }}">
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
                         <label class="checkbox">
-                            <input type="checkbox">
+                            <input type="checkbox" name="agree" id="agree">
                             {{ ucfirst(__('generic.agreeRules')) }}
                         </label>
                     </div>

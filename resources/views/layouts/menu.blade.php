@@ -38,6 +38,35 @@
 
         <div class="navbar-end">
             <div class="navbar-item">
+                @if (Auth::check())
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            <strong class="pr-4">{{ Auth::user()->name }}</strong>
+                            <figure class="image is-48x48">
+                                <img class="is-rounded" style="max-height: 48px" src="https://thumbs.dreamstime.com/b/trendy-hookah-smoke-cloud-black-background-126472548.jpg">
+                            </figure>
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                {{ __('menu.settings') }}
+                            </a>
+                            <a class="navbar-item">
+                                {{ __('menu.posts') }}
+                            </a>
+                            @if (Auth::user()->role === 'admin')
+                                <hr class="dropdown-divider" />
+                                <a class="navbar-item" href="admin">
+                                    {{ __('menu.admin') }}
+                                </a>
+                            @endif
+                            <hr class="dropdown-divider" />
+                            <a class="navbar-item" href="logout">
+                                {{ __('menu.logOut') }}
+                            </a>
+                        </div>
+                    </div>
+                @else
                 <div class="buttons">
                     <a class="button is-primary" href="register">
                         <strong>{{ ucfirst(__('generic.registerButton')) }}</strong>
@@ -46,6 +75,7 @@
                         {{ ucfirst(__('generic.loginButton')) }}
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
