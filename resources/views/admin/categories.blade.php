@@ -8,10 +8,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>{{ __('admin.id') }}</th>
-                        <th>{{ __('admin.categoryName') }}</th>
-                        <th>{{ __('admin.categoryNameTranslated') }}</th>
-                        <th>{{ __('admin.categoryOptions') }}</th>
+                        <th>{{ __('admin.category.id') }}</th>
+                        <th>{{ __('admin.category.name') }}</th>
+                        <th>{{ __('admin.category.nameTranslated') }}</th>
+                        <th>{{ __('admin.category.productsCount') }}</th>
+                        <th>{{ __('admin.category.options') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,6 +21,7 @@
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
                             <td>{{ __($category->name) }}</td>
+                            <td>{{ $category->Products->count() }}</td>
                             <td>
                                 <div class="columns">
                                     <div class="column">
@@ -33,15 +35,13 @@
                                         </form>
                                     </div>
                                 </div>
-
-
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="4"><a class="button is-success" href="/admin/categories/create"><span class="mdi mdi-plus"></span></a></td>
+                        <td colspan="5"><a class="button is-success" href="/admin/categories/create"><span class="mdi mdi-plus"></span></a></td>
                     </tr>
                 </tfoot>
             </table>

@@ -21,6 +21,8 @@
                 </p>
                 <ul class="menu-list">
                     <li><a>{{ __('admin.productsList') }}</a></li>
+                    <li><a href="/admin/products/publish">{{ __('admin.productsListAccepted') }}</a></li>
+                    <li><a href="/admin/tags">{{ __('admin.productsTagsList') }}</a></li>
                     <li><a>{{ __('admin.productsStats') }}</a></li>
                 </ul>
             </aside>

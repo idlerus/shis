@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="columns is-centered">
+    <div class="columns is-centered pt-2">
         <div class="column is-5">
             <a href="/products" class="button is-secondary is-small">< {{ __('generic.return') }}</a>
             <div class="border rounded mt-5 pl-4 pr-4 pt-4 pb-4">
@@ -57,12 +57,24 @@
                             <div class="select">
                                 <select id="category" name="category">
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->id }}">{{ trans_choice($category->name, 1) }}</option>
+                                        <option {{ ($category->id === $product->category_id) ? 'selected' : '' }} value="{{ $category->id }}">{{ trans_choice($category->name, 1) }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <p class="help">{{ __('product.form.helpCategory') }}</p>
+                    </div>
+                    <div class="field">
+                        <label for="tags">{{ __('product.form.tags') }}</label>
+                        <div class="control">
+                            <div class="select is-multiple">
+                                <select id="tags" name="tags[]" multiple size="8">
+                                    @foreach($tags as $tag)
+                                        <option {{ in_array($tag->id, $product->Tags()->pluck('tag_id')->all()) ? 'selected' : '' }} value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="row mt-2">
                         <div class="control-group col-12 text-center">

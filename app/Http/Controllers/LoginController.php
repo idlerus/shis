@@ -3,19 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+    /**
+     * Handle a login Index view
+     *
+     * @return Application|Factory|View
+     */
     public function indexLogin()
     {
         return view('auth.login');
     }
 
+    /**
+     * Handle a register Index view
+     *
+     * @return Application|Factory|View
+     */
     public function indexRegister()
     {
         return view('auth.register');
@@ -42,13 +56,18 @@ class LoginController extends Controller
         return back()->withErrors(['password' => [__('generic.passwordInvalid')]]);
     }
 
-
+    /**
+     * Handle an register attempt
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function register(Request $request)
     {
         $request->validate([
             'name' => 'required|max:32|unique:users',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:8|regex:/^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$/',
+            'password' => 'required|confirmed|min:8|regex:/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/',
             'agree' => 'required'
         ]);
 
@@ -64,6 +83,11 @@ class LoginController extends Controller
             return back()->withErrors(__('generic.failedToRegister'));
     }
 
+    /**
+     * Handle a log-out action
+     *
+     * @return Application|RedirectResponse|Redirector
+     */
     public function logOut() {
         Session::flush();
         Auth::logout();

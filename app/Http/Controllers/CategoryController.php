@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -69,9 +70,23 @@ class CategoryController extends Controller
      * @param Category $category
      * @return Application|Factory|View
      */
-    public function show(Category $category)
+    public function show(Category $category, Request $request)
     {
-        return view('category.show', ['category' => $category]);
+        $products = $category->Products()->orderBy('id', 'desc');
+
+        $tags  = $request->input('tags');
+        $brand = $request->input('brand');
+        $name  = $request->input('name');
+
+        if ($tags !== null)
+        {
+            $products = $products->join('product_tag', 'products.id', '=', 'product_tag.product_id', 'inner', 'product_tag.tag_id IN ('.$tags.')');
+        }
+
+        return view('category.show', [
+            'category' => $category,
+            'products' => $products->paginate(10)
+        ]);
     }
 
     /**

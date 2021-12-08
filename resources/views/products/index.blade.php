@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-            <div class="columns pt-2 is-centered">
+            <div class="columns pt-2 is-centered m-2">
                 <div class="column is-centered">
                     <div class="is-half">
                         <h1 class="is-size-1">Our sheesh</h1>
@@ -15,6 +15,7 @@
                             @empty
                                 <p class="text-warning">No blog Posts available</p>
                             @endforelse
+                            {{ $products->links('layouts.pagination') }}
                         </div>
                         <div class="column is-4">
                             <p>Create new Product</p>

@@ -28,7 +28,7 @@
 
                 <div class="navbar-dropdown">
                     @foreach ($categories as $category)
-                        @if ($category->id !== 1)
+                        @if ($category->id !== 1 && $category->hasAnyProducts())
                             <a class="navbar-item" href="/category/{{ $category->id }}">
                                 {{ ucfirst(trans_choice($category->name, 2)) }}
                             </a>
@@ -40,6 +40,22 @@
 
         <div class="navbar-end">
             @if (Auth::check())
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        <strong class="pr-4"><span class="mdi mdi-plus"></span></strong>
+                    </a>
+
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/products/create/post">
+                            {{ __('menu.createProduct') }}
+                        </a>
+                        @if (Auth::user()->role === 'admin')
+                            <a class="navbar-item" href="/admin/categories/create">
+                                {{ __('menu.createCategory') }}
+                            </a>
+                        @endif
+                    </div>
+                </div>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         <strong class="pr-4">{{ Auth::user()->name }}</strong>
@@ -57,12 +73,12 @@
                         </a>
                         @if (Auth::user()->role === 'admin')
                             <hr class="dropdown-divider" />
-                            <a class="navbar-item" href="admin">
+                            <a class="navbar-item" href="/admin">
                                 {{ __('menu.admin') }}
                             </a>
                         @endif
                         <hr class="dropdown-divider" />
-                        <a class="navbar-item" href="logout">
+                        <a class="navbar-item" href="/logout">
                             {{ __('menu.logOut') }}
                         </a>
                     </div>
@@ -70,10 +86,10 @@
             @else
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-primary" href="register">
+                        <a class="button is-primary" href="/register">
                             <strong>{{ ucfirst(__('generic.registerButton')) }}</strong>
                         </a>
-                        <a class="button is-light" href="login">
+                        <a class="button is-light" href="/login">
                             {{ ucfirst(__('generic.loginButton')) }}
                         </a>
                     </div>
