@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -29,7 +30,7 @@ class Category extends Model
     }
 
     /**
-     * Chceck if category has any products assigned
+     * Check if category has any products assigned
      *
      * @return bool
      */
@@ -39,12 +40,18 @@ class Category extends Model
     }
 
     /**
-     * Tags for all products in category
+     * Returns tags associated with products in category
      *
-     * @return HasManyThrough
+     * @return Collection<Tag>
      */
     public function Tags()
     {
-        return $this->hasManyThrough(Product::class, Tag::class);
+        $tags = [];
+        $products = $this->Products()->get();
+        foreach($products as $product)
+        {
+            $tags = $product->Tags();
+        }
+        return $tags->get();
     }
 }

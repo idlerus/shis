@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -19,6 +20,7 @@ class ProductFactory extends Factory
             'fullDesc' => $this->faker->paragraph(30),
             'brand' => $this->faker->lastName(),
             'country' => $this->faker->country(),
+            'created_by_user_id' => User::all()->random()->id,
         ];
     }
 }

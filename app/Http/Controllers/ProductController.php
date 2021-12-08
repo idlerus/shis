@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
 {
@@ -22,7 +23,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('products.index', [
-            'products' => Product::paginate(3)
+            'products' => Product::paginate(10)
         ]);
     }
 
@@ -130,14 +131,14 @@ class ProductController extends Controller
      * Publishes the product to public
      *
      * @param Product $product
-     * @return Application|Redirector|RedirectResponse
+     * @return RedirectResponse
      */
-    public function publish(Product $product)
+    public function publish(Product $product): RedirectResponse
     {
         $product->published = 1;
         $product->save();
 
-        return redirect('/category/'.$product->category_id);
+        return Redirect::back();
     }
 
 
@@ -147,7 +148,7 @@ class ProductController extends Controller
     public function indexPublishAdmin()
     {
         return view('admin.products-publish', [
-            'products' => Product::all()
+            'products' => Product::where('published', '=', '0')->paginate(10)
         ]);
     }
 }

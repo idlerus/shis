@@ -15,7 +15,7 @@
                             @empty
                                 <p class="text-warning">No blog Posts available</p>
                             @endforelse
-                            {{ $products->links('layouts.pagination') }}
+                            {{ $products->onEachSide(2)->links('layouts.pagination') }}
                         </div>
                         <div class="column is-4">
                             <p>Create new Product</p>

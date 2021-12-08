@@ -17,38 +17,41 @@
                 </thead>
                 <tbody>
                 @foreach($products as $product)
-                    @if(!(bool) $product->published)
-                        <tr>
-                            <td>{{ $product->id }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->brand }}</td>
-                            <td>{{ $product->getRatingAvg() }}/5</td>
-                            <td>
-                                <div class="columns">
-                                    <div class="column is-narrow">
-                                        <a href="/products/{{ $product->id }}/edit" class="button is-primary"><span class="mdi mdi-pencil"></span></a>
-                                    </div>
-                                    <div class="column is-narrow">
-                                        <form action="/products/{{ $product->id }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button class="button is-danger"><span class="mdi mdi-delete"></span></button>
-                                        </form>
-                                    </div>
-                                    <div class="column is-narrow">
-                                        <form action="/products/{{ $product->id }}/publish" method="POST">
-                                            @csrf
-                                            @method('PUT')
-                                            <button type="submit" class="button is-warning">{{ __('product.publish') }}</button>
-                                        </form>
-                                    </div>
+                    <tr>
+                        <td>{{ $product->id }}</td>
+                        <td>{{ $product->name }}</td>
+                        <td>{{ $product->brand }}</td>
+                        <td>{{ $product->getRatingAvg() }}/5</td>
+                        <td>
+                            <div class="columns">
+                                <div class="column is-narrow">
+                                    <a href="/products/{{ $product->id }}/edit" class="button is-primary"><span class="mdi mdi-pencil"></span></a>
                                 </div>
-                            </td>
-                        </tr>
-                    @endif
+                                <div class="column is-narrow">
+                                    <form action="/products/{{ $product->id }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="button is-danger"><span class="mdi mdi-delete"></span></button>
+                                    </form>
+                                </div>
+                                <div class="column is-narrow">
+                                    <form action="/products/{{ $product->id }}/publish" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="button is-warning">{{ __('product.publish') }}</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
+                    <tr>
+                        <td colspan="100%">
+                            {{ $products->onEachSide(2)->links('layouts.pagination') }}
+                        </td>
+                    </tr>
                 </tfoot>
             </table>
         </div>

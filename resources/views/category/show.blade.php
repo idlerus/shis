@@ -4,6 +4,34 @@
         <div class="row">
             <div class="col-12 pt-2">
                 <h1 class="is-size-2">{{ trans_choice($category->name, 2) }}</h1>
+                <form class="form" method="GET">
+                    <div class="field is-horizontal">
+                        <div class="field-label is-normal">
+                            <label class="label" for="name">Name</label>
+                        </div>
+                        <div class="field-body">
+                            <div class="control">
+                                <input class="input" name="name" id="name" type="text" value="{{ app('request')->input('name') }}" placeholder="Text input">
+                            </div>
+                            <div class="control">
+                                <input class="input" name="brand" id="brand" type="text" value="{{ app('request')->input('brand') }}" placeholder="Text input">
+                            </div>
+                            <div class="control">
+                                <div class="select is-multiple">
+                                    <select id="tags" name="tags[]" multiple size="1">
+                                        @foreach($tags as $tag)
+                                            <option {{ app('request')->input('tags') !== null && !in_array($tag->id, app('request')->input('tags')) ? : 'selected' }} value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <button class="button is-link">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
                 <table class="table">
                     <thead>
                         <tr>
@@ -15,7 +43,6 @@
                     </thead>
                     <tbody>
                         @foreach($products as $product)
-                            @if((bool) $product->published || Auth::user()->hasPermission('moderator'))
                             <tr>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->brand }}</td>
@@ -37,7 +64,6 @@
                                     </div>
                                 </td>
                             </tr>
-                            @endif
                         @endforeach
                     </tbody>
                     <tfoot>

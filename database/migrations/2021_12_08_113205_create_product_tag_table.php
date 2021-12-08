@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTagProductTable extends Migration
+class CreateProductTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,9 @@ class CreateTagProductTable extends Migration
     public function up()
     {
         Schema::create('product_tag', function (Blueprint $table) {
-            $table->id();
             $table->integer('product_id');
             $table->integer('tag_id');
-            $table->timestamps();
+            $table->primary(['product_id', 'tag_id']);
         });
     }
 

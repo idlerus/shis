@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Tag;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -72,20 +74,43 @@ class CategoryController extends Controller
      */
     public function show(Category $category, Request $request)
     {
-        $products = $category->Products()->orderBy('id', 'desc');
+        $products = $category->Products()->orderBy('products.id', 'desc');
 
         $tags  = $request->input('tags');
         $brand = $request->input('brand');
         $name  = $request->input('name');
 
-        if ($tags !== null)
+        if($tags !== null)
         {
-            $products = $products->join('product_tag', 'products.id', '=', 'product_tag.product_id', 'inner', 'product_tag.tag_id IN ('.$tags.')');
+            $products = $products->join('product_tag', 'products.id', '=', 'product_tag.product_id')->whereIn('product_tag.tag_id', $tags);
+        }
+        if($brand !== null)
+        {
+            $products = $products->where('products.brand', 'like', '%'.$brand.'%');
+        }
+        if($name !== null)
+        {
+            $products = $products->where('products.name', 'like', '%'.$name.'%');
+        }
+
+        if(!Auth::user()->hasPermission('moderator'))
+        {
+            $products = $products->where('products.published', '=', '1');
+        }
+
+        $productsArr = $category->Products()->pluck('id')->all();
+        $tags = [];
+
+        foreach($productsArr as $prod)
+        {
+            $tags[] = $prod;
         }
 
         return view('category.show', [
             'category' => $category,
-            'products' => $products->paginate(10)
+            'products' => $products->paginate(10),
+            'tags'     => $category->Tags(),
+
         ]);
     }
 
