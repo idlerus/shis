@@ -42,11 +42,14 @@
                     <p>{{ __('generic.createComment') }}</p>
                 </div>
                 <div class="message-body">
-                    <textarea class="textarea" placeholder="e.g. Hello world"></textarea>
-                    <button class="button is-info mt-2">{{ __('generic.sendComment') }}</button>
+                    <form action="/products/{{ $product->id }}/comment" method="POST">
+                        @csrf
+                        <textarea class="textarea" name="comment" id="comment" placeholder="e.g. Hello world"></textarea>
+                        <button class="button is-info mt-2">{{ __('generic.sendComment') }}</button>
+                    </form>
                 </div>
             </article>
-            @foreach($product->comments as $comment)
+            @foreach($comments as $comment)
                 <article class="message pt-1">
                     <div class="message-header">
                         <p>{{ $comment->user->name }}</p>
@@ -57,6 +60,7 @@
                     </div>
                 </article>
             @endforeach
+            {{ $comments->onEachSide(2)->links('layouts.pagination') }}
         </div>
     </div>
 @endsection

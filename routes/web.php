@@ -29,12 +29,13 @@ Route::group(['middleware' => '\App\Http\Middleware\CategoriesMiddleware'], func
     Route::get('/products',                 [ProductController::class, 'index']);
     Route::get('/products/{product}',       [ProductController::class, 'show']);
     Route::group(['middleware' => 'auth'], function() {
-        Route::get('/products/create/post',       [ProductController::class, 'create']);
-        Route::post('/products/create/post',      [ProductController::class, 'store']);
-        Route::get('/products/{product}/edit',    [ProductController::class, 'edit']);
-        Route::put('/products/{product}/edit',    [ProductController::class, 'update']);
-        Route::put('/products/{product}/publish', [ProductController::class, 'publish']);
-        Route::delete('/products/{product}',      [ProductController::class, 'destroy']);
+        Route::get('/products/create/post',        [ProductController::class, 'create']);
+        Route::post('/products/create/post',       [ProductController::class, 'store']);
+        Route::get('/products/{product}/edit',     [ProductController::class, 'edit']);
+        Route::put('/products/{product}/edit',     [ProductController::class, 'update']);
+        Route::put('/products/{product}/publish',  [ProductController::class, 'publish']);
+        Route::delete('/products/{product}',       [ProductController::class, 'destroy']);
+        Route::post('/products/{product}/comment', [ProductController::class, 'commentCreate']);
     });
     Route::group(['middleware' => '\App\Http\Middleware\RoleMiddleware:admin'], function() {
         Route::view('/admin', 'admin.dashboard');

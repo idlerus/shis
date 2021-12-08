@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Tag;
 use Illuminate\Contracts\Foundation\Application;
@@ -69,7 +70,8 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         return view('products.show', [
-            'product' => $product
+            'product' => $product,
+            'comments' => $product->Comments()->orderBy('created_at', 'DESC')->paginate(5)
         ]);
     }
 
@@ -141,7 +143,6 @@ class ProductController extends Controller
         return Redirect::back();
     }
 
-
     /**
      * Show the list for publishing products for administration.
      */
@@ -150,5 +151,21 @@ class ProductController extends Controller
         return view('admin.products-publish', [
             'products' => Product::where('published', '=', '0')->paginate(10)
         ]);
+    }
+
+    /**
+     * Creates comment for product
+     *
+     * @return RedirectResponse
+     */
+    public function commentCreate(Request $request, Product $product): RedirectResponse
+    {
+        Comment::create([
+            'comment'    => $request->comment,
+            'user_id'    => Auth::id(),
+            'product_id' => $product->id,
+        ]);
+
+        return back();
     }
 }
