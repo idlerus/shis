@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-12 pt-2">
+    <div class="columns p-2">
+        <div class="column">
+            <div class="pt-2">
                 <h1 class="is-size-2">{{ trans_choice($category->name, 2) }}</h1>
                 <form class="form" method="GET">
                     <div class="field is-horizontal">
@@ -32,47 +32,31 @@
                     </div>
 
                 </form>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>{{ __('category.product') }}</th>
-                            <th>{{ __('category.brand') }}</th>
-                            <th>{{ __('category.rating') }}</th>
-                            <th>{{ __('category.link') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div class="columns p-2">
+                    <div class="list has-overflow-ellipsis">
                         @foreach($products as $product)
-                            <tr>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->brand }}</td>
-                                <td>{{ $product->getRatingAvg() }}/5</td>
-                                <td>
-                                    <div class="columns">
-                                        <div class="column">
-                                            <a href="/products/{{ $product->id }}" class="button is-small is-info">{{ __('generic.open') }}</a>
-                                        </div>
-                                        @if(!(bool) $product->published)
-                                            <div class="column">
-                                                <form action="/products/{{ $product->id }}/publish" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="button is-small is-warning">{{ __('product.publish') }}</button>
-                                                </form>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="100%">{{ $products->links('layouts.pagination') }}</td>
-                        </tr>
+                            <div class="list-item">
+                                <div class="list-item-image">
+                                    <figure class="image is-64x64">
+                                        <img class="is-rounded" src="https://via.placeholder.com/128x128.png?text=Image">
+                                    </figure>
+                                </div>
 
-                    </tfoot>
-                </table>
+                                <div class="list-item-content">
+                                    <div class="list-item-title"><a href="/products/{{ $product->id }}" class="is-link">{{ $product->name }}</a></div>
+                                    <div class="list-item-description">
+                                        <div class="tag">{{ $product->getRatingAvg() }}/5 <span class="mdi mdi-star"></span></div>
+                                        <div class="tag">{{ $product->brand }}</div>
+                                    </div>
+                                    <div class="list-item-description">
+                                        <div class="tag">{{ $product->shortDesc }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                {{ $products->links('layouts.pagination') }}
             </div>
         </div>
     </div>

@@ -14,10 +14,24 @@
                     <div class="column is-narrow">
                         <a href="/products/{{ $product->id }}/edit" class="button is-primary">{{ __('product.edit') }}</a>
                     </div>
+                    <dic class="column is-narrow">
+                        <form action="/products/{{ $product->id }}/rating" method="POST">
+                            @csrf
+                            @method('POST')
+                            <div class="field has-addons">
+                                <div class="control">
+                                    <input class="input" type="number" min="0" max="5" step="0.5" name="rating" value="{{ $rating }}" id="rating" />
+                                </div>
+                                <div class="control">
+                                    <button class="button is-info" type="submit">Rate</button>
+                                </div>
+                            </div>
+                        </form>
+                    </dic>
                     <div class="column is-narrow">
                         <form id="delete-frm" class="" action="" method="POST">
-                            @method('DELETE')
                             @csrf
+                            @method('DELETE')
                             <button class="button is-danger">{{ __('product.delete') }}</button>
                         </form>
                     </div>

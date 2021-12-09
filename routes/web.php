@@ -36,6 +36,7 @@ Route::group(['middleware' => '\App\Http\Middleware\CategoriesMiddleware'], func
         Route::put('/products/{product}/publish',  [ProductController::class, 'publish']);
         Route::delete('/products/{product}',       [ProductController::class, 'destroy']);
         Route::post('/products/{product}/comment', [ProductController::class, 'commentCreate']);
+        Route::post('/products/{product}/rating',  [ProductController::class, 'rating']);
     });
     Route::group(['middleware' => '\App\Http\Middleware\RoleMiddleware:admin'], function() {
         Route::view('/admin', 'admin.dashboard');

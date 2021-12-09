@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Models\Tag;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -69,9 +70,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $rating = $product->Ratings()->where('user_id', '=', Auth::id())->get();
+        if($rating->isEmpty())
+            $rating = 0;
+        else
+            $rating = $rating[0]->rating;
         return view('products.show', [
             'product' => $product,
-            'comments' => $product->Comments()->orderBy('created_at', 'DESC')->paginate(5)
+            'comments' => $product->Comments()->orderBy('created_at', 'DESC')->paginate(5),
+            'rating' => $rating
         ]);
     }
 
@@ -166,6 +173,35 @@ class ProductController extends Controller
             'product_id' => $product->id,
         ]);
 
+        return back();
+    }
+
+    /**
+     * Creates comment for product
+     *
+     * @return RedirectResponse
+     */
+    public function rating(Request $request, Product $product): RedirectResponse
+    {
+        if ($request->rating !== null && $request->rating < 0 && $request->rating > 5)
+        {
+            return back()->withErrors(__('product.invalidRating'));
+        }
+
+        $rating = Rating::where('user_id', '=', Auth::id())->where('product_id', '=', $product->id)->get();
+        if($rating->isEmpty())
+        {
+            Rating::create([
+                'user_id' => Auth::id(),
+                'product_id' => $product->id,
+                'rating' => $request->rating
+            ]);
+        }
+        else
+        {
+            $rating[0]->rating = $request->rating;
+            $rating[0]->save();
+        }
         return back();
     }
 }
